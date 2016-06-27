@@ -2,12 +2,13 @@
 -- slash commands
 --=================================
 SlashCmdList['MYADDON_SLASHCMD'] = function(m)
+   print(m)
    if m == 'show' then 
       ARBButtonFrame:Show() 
-   elseif m == 'hide' then 
+   end
+
+   if m == 'hide' then 
       ARBButtonFrame:Hide()
-   else 
-      return
    end
 end
 SLASH_MYADDON_SLASHCMD1 = '/arb'
@@ -95,5 +96,39 @@ end
 function doMarkTanks()
    SetRaidTarget("player",2)
    if hasFocus() then SetRaidTarget("focus",5) end
+   return true
+end
+
+-- v1.8 update
+function doMarkPriority() 
+   -- Priority : Doomfire Spirit, Hellfire Deathcaller, Felborne Overfiend
+   local dfsExists = UnitExists("Doomfire Spirit")
+   local hdcExists = UnitExists("Hellfire Deathcaller")
+   local fofExists = UnitExists("Felborne Overfiend")
+
+   if dfsExists == 1 then 
+      SetRaidTarget("Doomfire Spirit",8) 
+      if hdcExists == 1 then
+         SetRaidTarget("Hellfire Deathcaller",7)
+         if fofExists == 1 then
+            SetRaidTarget("Felborne Overfiend",6)
+         end
+      else
+         if fofExists == 1 then
+            SetRaidTarget("Felborne Overfiend",7)
+         end
+      end
+   else
+      if hdcExists == 1 then
+         SetRaidTarget("Hellfire Deathcaller",8)
+         if fofExists == 1 then
+            SetRaidTarget("Felborne Overfiend",7)
+         end
+      else
+         if fofExists == 1 then
+            SetRaidTarget("Felborne Overfiend",8)
+         end
+      end
+   end
    return true
 end
