@@ -2,13 +2,12 @@
 -- slash commands
 --=================================
 SlashCmdList['MYADDON_SLASHCMD'] = function(m)
-   print(m)
    if m == 'show' then 
       ARBButtonFrame:Show() 
-   end
-
-   if m == 'hide' then 
+   elseif m == 'hide' then 
       ARBButtonFrame:Hide()
+   else 
+      return
    end
 end
 SLASH_MYADDON_SLASHCMD1 = '/arb'
@@ -98,6 +97,3 @@ function doMarkTanks()
    if hasFocus() then SetRaidTarget("focus",5) end
    return true
 end
-
--- v1.8 update
-function doMarkPriority() end
