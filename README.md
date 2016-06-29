@@ -17,9 +17,13 @@ Simple raid buttons for tanks. The buttons announce special instructions to the 
 * Sends messages to /rw if user is raid leader or raid assist, else it sends to /i, /raid, /party or /yell 
 
 **Todo :**
-* Skinning / Styling
-* Raid Target Icons
-* Set Raid Target Icons on tanks
+* Raid Target Icons (currently working on this)
 * Additional instruction buttons
 * Configuration settings
 * Allow for custom buttons
+
+
+3 download locations to choose from :
+Github - https://jeffgl77.github.io/ARB/
+Curse - http://mods.curse.com/addons/wow/archimonde-raid-buttons-arb
+Curseforge - http://wow.curseforge.com/addons/archimonde-raid-buttons-arb/
