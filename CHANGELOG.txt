@@ -10,3 +10,4 @@ v1.2		- media files changes
 		- fonts added to package (future use)
 		- readme update
 v1.2.1		- more media changes and reference updates
+v1.3		- break chains button added

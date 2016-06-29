@@ -1,7 +1,7 @@
 ## Interface: 60200
 ## Title: Archimonde Raid Buttons
 ## Author: Hrurgul-Elune (git:Jeffgl77 / curseforge:Ltrain77)
-## Version: v1.2
+## Version: v1.3
 ## X-Date: 28 June 2016
 ## X-Website-Curse: http://mods.curse.com/addons/wow/archimonde-raid-buttons-arb
 ## X-Website-Curseforge: http://wow.curseforge.com/addons/archimonde-raid-buttons-arb/

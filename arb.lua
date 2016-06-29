@@ -91,9 +91,15 @@ function doAdds()
    return true
 end
 
--- v1.5 update
 function doMarkTanks()
    SetRaidTarget("player",2)
    if hasFocus() then SetRaidTarget("focus",5) end
    return true
+end
+
+function doChains()
+	msg = "{rt4} Break your chains! {rt4}"
+	
+	SayIt(msg, RaidChannel())
+	return true
 end

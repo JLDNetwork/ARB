@@ -124,6 +124,29 @@
 					</OnMouseDown>
 				</Scripts>
 			</Button>
+
+			<Button name="ARBChainsButton" text="Chains">
+				<Size x="57" y="27"/>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="7" y="7"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="Interface\AddOns\ARB\Media\Themes\SyncUI\ButtonNormal" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
+					<EdgeSize val="12" />
+					<BackgroundInsets left="4" right="4" top="4" bottom="4" />
+				</Backdrop>
+				<NormalFont style="GameFontNormal"/>
+				<PushedFont style="GameFontNormal"/>
+				<HighlightFont style="GameFontHighlight"/>
+				<Scripts>
+					<OnMouseDown>
+						doChains()
+					</OnMouseDown>
+				</Scripts>
+			</Button>
 		</Frames>
 
 		<Scripts>
