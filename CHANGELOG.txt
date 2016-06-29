@@ -11,3 +11,5 @@ v1.2		- media files changes
 		- readme update
 v1.2.1		- more media changes and reference updates
 v1.3		- break chains button added
+
+v2.0-alpha	- code reworked, theme set in place
