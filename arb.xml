@@ -5,7 +5,7 @@
 		<Anchors>
 			<Anchor point="CENTER"/>
 		</Anchors>
-		<Backdrop bgFile="Interface\AddOns\ARB\Media\SyncUI\Background" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
+		<Backdrop bgFile="Interface\AddOns\ARB\Media\Themes\SyncUI\Background" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
 			<EdgeSize val="16" />
 			<BackgroundInsets left="4" right="4" top="4" bottom="4" />
 		</Backdrop>
@@ -19,7 +19,7 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="Interface\AddOns\ARB\Media\SyncUI\ButtonNormal" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
+				<Backdrop bgFile="Interface\AddOns\ARB\Media\Themes\SyncUI\ButtonNormal" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
 					<EdgeSize val="12" />
 					<BackgroundInsets left="4" right="4" top="4" bottom="4" />
 				</Backdrop>
@@ -42,7 +42,7 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="Interface\AddOns\ARB\Media\SyncUI\ButtonNormal" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
+				<Backdrop bgFile="Interface\AddOns\ARB\Media\Themes\SyncUI\ButtonNormal" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
 					<EdgeSize val="12" />
 					<BackgroundInsets left="4" right="4" top="4" bottom="4" />
 				</Backdrop>
@@ -65,7 +65,7 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="Interface\AddOns\ARB\Media\SyncUI\ButtonNormal" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
+				<Backdrop bgFile="Interface\AddOns\ARB\Media\Themes\SyncUI\ButtonNormal" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
 					<EdgeSize val="12" />
 					<BackgroundInsets left="4" right="4" top="4" bottom="4" />
 				</Backdrop>
@@ -88,7 +88,7 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="Interface\AddOns\ARB\Media\SyncUI\ButtonNormal" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
+				<Backdrop bgFile="Interface\AddOns\ARB\Media\Themes\SyncUI\ButtonNormal" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
 					<EdgeSize val="12" />
 					<BackgroundInsets left="4" right="4" top="4" bottom="4" />
 				</Backdrop>
@@ -111,7 +111,7 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="Interface\AddOns\ARB\Media\SyncUI\ButtonNormal" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
+				<Backdrop bgFile="Interface\AddOns\ARB\Media\Themes\SyncUI\ButtonNormal" edgeFile="Interface\AddOns\ARB\Media\SyncUI\Edge">
 					<EdgeSize val="12" />
 					<BackgroundInsets left="4" right="4" top="4" bottom="4" />
 				</Backdrop>
