@@ -124,7 +124,7 @@
 					</OnMouseDown>
 				</Scripts>
 			</Button>
-
+<!--
 			<Button name="ARBPriorityButton" text="Priority">
 				<Size x="57" y="27"/>
 				<Anchors>
@@ -148,7 +148,7 @@
 				</Scripts>
 			</Button>
 		</Frames>
-
+-->
 		<Scripts>
 			<OnLoad>
 				ARBButtonFrame:RegisterForDrag("LeftButton")
