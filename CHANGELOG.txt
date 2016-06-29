@@ -3,5 +3,9 @@
 ******************************************************
 v1.0 		- Initial release
 v1.1  		- .pkgmeta file added
-	 		- .toc file updated for future addon updates
+	 	- .toc file updated for future addon updates
 v1.1.1		- minor revisions to .toc, readme.md
+v1.2		- media files changes
+		- media references updated
+		- fonts added to package (future use)
+		- readme update
