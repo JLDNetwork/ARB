@@ -1,0 +1,6 @@
+******************************************************
+**	ARCHIMONDE RAID BUTTONS (ARB) : CHANGELOG.txt	**
+******************************************************
+v1.0 - Initial release
+v1.1 - .pkgmeta file added
+	 - .toc file updated for future addon updates
