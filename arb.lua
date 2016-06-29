@@ -77,8 +77,8 @@ function ARB_getFocus()
 end
 
 function ARB_setBtnTex(frame)
-   frame:SetNormalTexture("Interface\\Addons\\ARB\\Media\\ButtonNormal")
-   frame:SetPushedTexture("Interface\\Addons\\ARB\\Media\\ButtonPushed")
+   frame:SetNormalTexture("Interface\\Addons\\ARB\\Media\\Themes\\SyncUI\\ButtonNormal")
+   frame:SetPushedTexture("Interface\\Addons\\ARB\\Media\\Themes\\SyncUI\\ButtonPushed")
 end
 
 function ARB_setBtnFont(frame)
@@ -112,7 +112,7 @@ function ARB_makeFrame()
    local ARB_f = CreateFrame("FRAME","ARB_f",UIParent)
    ARB_f:SetSize(ARB_frameWidth,ARB_frameHeight)
    ARB_f:SetPoint("CENTER",0,0)
-   ARB_f:SetBackdrop({bgFile = [[Interface\AddOns\ARB\Media\Background]], edgeFile = [[Interface\AddOns\ARB\Media\Edge]], edgeSize = 16, insets = {left = 4, right = 4, top = 4, bottom = 4}})
+   ARB_f:SetBackdrop({bgFile = [[Interface\AddOns\ARB\Media\Themes\SyncUI\Background]], edgeFile = [[Interface\AddOns\ARB\Media\Themes\SyncUI\Edge]], edgeSize = 16, insets = {left = 4, right = 4, top = 4, bottom = 4}})
    ARB_f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
    ARB_f:SetScript("OnEvent", function(self,event,...)
       local count = 1
