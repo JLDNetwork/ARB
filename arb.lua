@@ -40,7 +40,7 @@ function ARB_show(text, sendIt)
          SendChatMessage(text,"WHISPER",nil,ARB_focus)
       end
       SendChatMessage(text,ARB_channel)
-      if (not UnitIsRaidOfficer('player')) or (UnitIsGroupLeader('player')) then
+      if ARB_channel == 'SAY' then
          SendChatMessage(text,'YELL')
       end
    else
@@ -172,13 +172,7 @@ function ARB_makeFrame()
    ARB_setBtnFont(ARB_stack)
    ARB_stack:SetText(ARB_buttons[2])
    ARB_stack:RegisterForClicks("AnyDown")
-   ARB_stack:SetScript("OnClick", function(self,button)
-      if button == "LeftButton" then
-         ARB_show("{rt1} Stack on tanks! {rt1}",1)
-      else
-         ARB_show("{rt1} "..ARB_buttons[2].."! {rt1}",1)
-      end
-   end)
+   ARB_stack:SetScript("OnClick", function(self,button) ARB_show("{rt1} "..(button == "LeftButton" and "Stack on tanks!" or "Stack!").." {rt1}",1) end)
    ARB_stack:SetAlpha(1)
 
    -- btn : Spread
@@ -189,13 +183,7 @@ function ARB_makeFrame()
    ARB_setBtnFont(ARB_spread)
    ARB_spread:SetText(ARB_buttons[3])
    ARB_spread:RegisterForClicks("AnyDown")
-   ARB_spread:SetScript("OnClick", function(self,button)
-      if button == "LeftButton" then
-         ARB_show("{rt8} Ranged, spread out! {rt8}",1)
-      else
-         ARB_show("{rt8} Spread out! {rt8}",1)
-      end
-   end)
+   ARB_spread:SetScript("OnClick", function(self,button) ARB_show("{rt8} "..(button == "LeftButton" and "Ranged, spread out!" or "Spread out!").." {rt8}",1) end)
    ARB_spread:SetAlpha(1)
 
    -- btn : Adds
@@ -206,9 +194,7 @@ function ARB_makeFrame()
    ARB_setBtnFont(ARB_adds)
    ARB_adds:SetText(ARB_buttons[4])
    ARB_adds:RegisterForClicks("AnyDown")
-   ARB_adds:SetScript("OnClick", function()
-      ARB_show(gsub("{rt7} Use {spell:34477} / {spell:57934} or run the adds to the tank(s)! {rt7}","{spell:(%d+)}",GetSpellLink),1)
-   end)
+   ARB_adds:SetScript("OnClick", function() ARB_show(gsub("{rt7} Use {spell:34477} / {spell:57934} or run the adds to the tank(s)! {rt7}","{spell:(%d+)}",GetSpellLink),1) end)
    ARB_adds:SetAlpha(1)
 
    -- btn : Chains
@@ -219,9 +205,7 @@ function ARB_makeFrame()
    ARB_setBtnFont(ARB_chains)
    ARB_chains:SetText(ARB_buttons[5])
    ARB_chains:RegisterForClicks("AnyDown")
-   ARB_chains:SetScript("OnClick", function() 
-      ARB_show("{rt4} Break your chains! {rt4}",1)
-   end)
+   ARB_chains:SetScript("OnClick", function() ARB_show("{rt4} Break your chains! {rt4}",1) end)
    ARB_chains:SetAlpha(1)
 
    -- btn : Tanks [LEFTBUTTONDOWN-mark self and focus(if exists), RIGHTBUTTONDOWN-remove raid target icons from self and focus(if exists)]
@@ -265,9 +249,7 @@ function ARB_makeFrame()
    ARB_setBtnFont(ARB_priority)
    ARB_priority:SetText(ARB_buttons[7])
    ARB_priority:RegisterForClicks("AnyDown")
-   ARB_priority:SetScript("OnClick", function()
-      SetRaidTarget("target",8)
-   end)
+   ARB_priority:SetScript("OnClick", function(self,button) SetRaidTarget("target",(button == "LeftButton") and 8 or 7) end)
    ARB_priority:SetAlpha(1)
 
    -- btn : readycheck
