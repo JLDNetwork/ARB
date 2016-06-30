@@ -288,5 +288,5 @@ if (not ARB_f) then
    local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo("ARB")
    local version = GetAddOnMetadata("ARB", "version")
    ARB_show(title.." ("..name..") "..version)
-   ARB_show("Would you like to test future releases, before they come out? Contact me in game. ( Illithid#1351 )")
+   ARB_show("Welcome "..GetUnitName("player")..", would you like to test future releases, before they come out? Contact me in game. ( Illithid#1351 )")
 end

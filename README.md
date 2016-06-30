@@ -21,6 +21,7 @@ Simple raid buttons for tanks. The buttons announce special instructions to the 
 - 2 lucky charms buttons
 - 1 utility button
 - Dual function buttons
+- Low memory consumption
 - Sends messages to /rw if user is raid leader or raid assist, else it sends to /i, /raid, /party or /yell 
 
 **Todo :**
