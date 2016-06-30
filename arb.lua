@@ -1,6 +1,6 @@
-local ARB_channel, ARB_focus
-local ARB_mobs = {}
-local ARB_guids = {}
+local ARB_channel, ARB_focus, ARB_sendWhisper
+--local ARB_mobs = {}
+--local ARB_guids = {}
 
 ---------------------
 -- utility functions
@@ -36,14 +36,17 @@ function ARB_show(text, sendIt)
 
    -- determine if we are self messaging
    if sendIt == 1 then
-      if (ARB_channel == 'WHISPER' and ARB_focus ~= false) then
-         SendChatMessage(text,channel,nil,ARB_focus)
-      else
-         SendChatMessage(text,channel)
+      if (ARB_sendWhisper == true and ARB_focus ~= false) then
+         SendChatMessage(text,"WHISPER",nil,ARB_focus)
+      end
+      SendChatMessage(text,ARB_channel)
+      if (not UnitIsRaidOfficer('player')) or (UnitIsGroupLeader('player')) then
+         SendChatMessage(text,'YELL')
       end
    else
       print("|cff" ..c.. " [ARB] : " ..text.. "|r")
    end
+
 end
 
 function ARB_getCount(array)
@@ -102,7 +105,8 @@ function ARB_makeFrame()
       "Adds",
       "Chains",
       "Tanks",
-      "Priority"
+      "Priority",
+      "Ready"
    }
    local ARB_numButtons = ARB_getCount(ARB_buttons)
    local ARB_numRows = ((ARB_numButtons < ARB_maxButtonsPerRow) and 1 or math.ceil(ARB_numButtons/ARB_maxButtonsPerRow))
@@ -115,26 +119,26 @@ function ARB_makeFrame()
    ARB_f:SetBackdrop({bgFile = [[Interface\AddOns\ARB\Media\Themes\SyncUI\Background]], edgeFile = [[Interface\AddOns\ARB\Media\Themes\SyncUI\Edge]], edgeSize = 16, insets = {left = 4, right = 4, top = 4, bottom = 4}})
    ARB_f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
    ARB_f:SetScript("OnEvent", function(self,event,...)
-      local count = 1
-      local mob = select(9,...)
-      local mobGUID = select(8,...)
+      --local count = 1
+      --local mob = select(9,...)
+      --local mobGUID = select(8,...)
     
-      if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-         if select(2,...) ~= "UNIT_DIED" then
-            if mob == "Darkwraith" then
-               table.insert(ARB_mobs,count,mob)
-               table.insert(ARB_guids,count,mobGUID)
-            end
-         else
-            for i = 1, #ARB_mobs do
-               if select(9,...) == ARB_mobs[i] then
-                  table.remove(ARB_mobs, i)
-                  table.remove(ARB_guids, i)
-               end
-            end
-         end
-         count = count + 1
-      end
+      --if event == "COMBAT_LOG_EVENT_UNFILTERED" then
+         --if select(2,...) ~= "UNIT_DIED" then
+            --if mob == "Darkwraith" then
+               --table.insert(ARB_mobs,count,mob)
+               --table.insert(ARB_guids,count,mobGUID)
+            --end
+         --else
+            --for i = 1, #ARB_mobs do
+               --if select(9,...) == ARB_mobs[i] then
+                  --table.remove(ARB_mobs, i)
+                  --table.remove(ARB_guids, i)
+               --end
+            --end
+         --end
+         --count = count + 1
+      --end
    end)
 
    -- allow frame to be moved
@@ -147,14 +151,16 @@ function ARB_makeFrame()
    ARB_taunt:SetPoint("TOPLEFT",ARB_BtnCoordsX(1,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(1,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_taunt)
    ARB_setBtnFont(ARB_taunt)
-   ARB_taunt:SetText("Taunt")
+   ARB_taunt:SetText(ARB_buttons[1])
    ARB_taunt:RegisterForClicks("AnyDown")
    ARB_taunt:SetScript("OnClick", function()
       ARB_getFocus()
       if ARB_focus ~= false then
-         ARB_show("{rt3} %f, Taunt! {rt3}",1)
-      end         
-      ARB_show("{rt3} Taunt! {rt3}",1)
+         ARB_sendWhisper = true
+         ARB_show("{rt3} %f, "..ARB_buttons[1].."! {rt3}",1)
+      else        
+         ARB_show("{rt3} "..ARB_buttons[1].."! {rt3}",1)
+      end
    end)
    ARB_taunt:SetAlpha(1) 
 
@@ -164,10 +170,14 @@ function ARB_makeFrame()
    ARB_stack:SetPoint("TOPLEFT",ARB_BtnCoordsX(2,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(1,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_stack)
    ARB_setBtnFont(ARB_stack)
-   ARB_stack:SetText("Stack")
+   ARB_stack:SetText(ARB_buttons[2])
    ARB_stack:RegisterForClicks("AnyDown")
-   ARB_stack:SetScript("OnClick", function()
-      ARB_show("{rt1} Stack on tanks! {rt1}",1)
+   ARB_stack:SetScript("OnClick", function(self,button)
+      if button == "LeftButton" then
+         ARB_show("{rt1} Stack on tanks! {rt1}",1)
+      else
+         ARB_show("{rt1} "..ARB_buttons[2].."! {rt1}",1)
+      end
    end)
    ARB_stack:SetAlpha(1)
 
@@ -177,10 +187,14 @@ function ARB_makeFrame()
    ARB_spread:SetPoint("TOPLEFT",ARB_BtnCoordsX(3,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(1,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_spread)
    ARB_setBtnFont(ARB_spread)
-   ARB_spread:SetText("Spread")
+   ARB_spread:SetText(ARB_buttons[3])
    ARB_spread:RegisterForClicks("AnyDown")
-   ARB_spread:SetScript("OnClick", function()
-      ARB_show("{rt8} Ranged, spread out! {rt8}",1)
+   ARB_spread:SetScript("OnClick", function(self,button)
+      if button == "LeftButton" then
+         ARB_show("{rt8} Ranged, spread out! {rt8}",1)
+      else
+         ARB_show("{rt8} Spread out! {rt8}",1)
+      end
    end)
    ARB_spread:SetAlpha(1)
 
@@ -190,10 +204,10 @@ function ARB_makeFrame()
    ARB_adds:SetPoint("TOPLEFT",ARB_BtnCoordsX(4,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(1,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_adds)
    ARB_setBtnFont(ARB_adds)
-   ARB_adds:SetText("Adds")
+   ARB_adds:SetText(ARB_buttons[4])
    ARB_adds:RegisterForClicks("AnyDown")
    ARB_adds:SetScript("OnClick", function()
-      ARB_show(gsub("{rt7} Use {spell:34477} / {spell:57934} or run the adds to the tanks! {rt7}","{spell:(%d+)}",GetSpellLink),1)
+      ARB_show(gsub("{rt7} Use {spell:34477} / {spell:57934} or run the adds to the tank(s)! {rt7}","{spell:(%d+)}",GetSpellLink),1)
    end)
    ARB_adds:SetAlpha(1)
 
@@ -203,7 +217,7 @@ function ARB_makeFrame()
    ARB_chains:SetPoint("TOPLEFT",ARB_BtnCoordsX(1,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(2,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_chains)
    ARB_setBtnFont(ARB_chains)
-   ARB_chains:SetText("Chains")
+   ARB_chains:SetText(ARB_buttons[5])
    ARB_chains:RegisterForClicks("AnyDown")
    ARB_chains:SetScript("OnClick", function() 
       ARB_show("{rt4} Break your chains! {rt4}",1)
@@ -216,7 +230,7 @@ function ARB_makeFrame()
    ARB_tanks:SetPoint("TOPLEFT",ARB_BtnCoordsX(2,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(2,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_tanks)
    ARB_setBtnFont(ARB_tanks)
-   ARB_tanks:SetText("Tanks")
+   ARB_tanks:SetText(ARB_buttons[6])
    ARB_tanks:RegisterForClicks("AnyDown")
    ARB_tanks:SetScript("OnMouseDown", function(self,button)
       ARB_getFocus()
@@ -249,18 +263,23 @@ function ARB_makeFrame()
    ARB_priority:SetPoint("TOPLEFT",ARB_BtnCoordsX(3,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(2,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_priority)
    ARB_setBtnFont(ARB_priority)
-   ARB_priority:SetText("Priority")
+   ARB_priority:SetText(ARB_buttons[7])
    ARB_priority:RegisterForClicks("AnyDown")
    ARB_priority:SetScript("OnClick", function()
-      ARB_show("Button Disabled!")
-      ARB_show("This button is still being worked on.")
-      for _,v in pairs(mobs) do
-         if v == "Darkwraith" then
-            SetRaidTarget("Darkwraith",8)
-         end
-      end
+      SetRaidTarget("target",8)
    end)
    ARB_priority:SetAlpha(1)
+
+   -- btn : readycheck
+   local ARB_readycheck = CreateFrame("BUTTON","ARB_readycheck",ARB_f,"SecureActionButtonTemplate")
+   ARB_readycheck:SetSize(ARB_buttonWidth,ARB_buttonHeight)
+   ARB_readycheck:SetPoint("TOPLEFT",ARB_BtnCoordsX(4,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(2,ARB_buttonSpacing,ARB_buttonHeight))
+   ARB_setBtnTex(ARB_readycheck)
+   ARB_setBtnFont(ARB_readycheck)
+   ARB_readycheck:SetText(ARB_buttons[8])
+   ARB_readycheck:SetAttribute("type","macro")
+   ARB_readycheck:SetAttribute("macrotext", IsShiftKeyDown() and "/dbm pull 10" or "/readycheck")
+   ARB_readycheck:SetAlpha(1)
 
    ARB_f:Hide()
 end
@@ -287,4 +306,5 @@ if (not ARB_f) then
    local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo("ARB")
    local version = GetAddOnMetadata("ARB", "version")
    ARB_show(title.." ("..name..") "..version)
+   ARB_show("Would you like to test future releases, before they come out? Contact me in game. ( Illithid#1351 )")
 end
