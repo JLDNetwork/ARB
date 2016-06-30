@@ -5,7 +5,7 @@ Simple raid buttons for tanks. The buttons announce special instructions to the 
 - Stack - announces to the raid to stack on the tanks (right mouse button click allows for use outside Arch fight)
 - Spread - announces to the raid to spread out (right mouse button click allows for use outside Arch fight)
 - Chains - announces to the raid to break their chains (Arch specific)
-- Ready - does /readycheck; support for /dbm pull 10 on shift + click (usable anytime)
+- Ready - does /readycheck (usable anytime)
 - Priority - set raid icons (left click to set skull on target; right click to set X on target) (usable anytime)
 - Tanks - sets raid icons on you and your focus (usable anytime)
 - Add management - instructs the ranged to use threat transferring skills, such as Misdirection / Tricks of the Trade (usable for any fight where adds are plentiful)
@@ -19,11 +19,12 @@ Simple raid buttons for tanks. The buttons announce special instructions to the 
 - Draggable
 - 5 instruction buttons
 - 2 lucky charms buttons
-- 1 utility button with dual functions
-- Spread and Stack buttons offer dual functionality
+- 1 utility button
+- Dual function buttons
 - Sends messages to /rw if user is raid leader or raid assist, else it sends to /i, /raid, /party or /yell 
 
 **Todo :**
+- add support for /dbm pull 10 on the ready button
 - Configuration settings
 - Allow for custom buttons
 
