@@ -18,3 +18,4 @@ v2.2-alpha				- button updates
 						- ready button : added support for 'shift + click' to do a /dbm pull 10
 						- fixed a bug causing taunt whisper to not be sent out
 v2.2.1-alpha			- added dual functionality to stack and spread buttons
+v2.3-alpha				- some code refactoring
