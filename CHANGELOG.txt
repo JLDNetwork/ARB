@@ -1,0 +1,23 @@
+**********************************************************
+**    ARCHIMONDE RAID BUTTONS (ARB) : CHANGELOG.txt		**
+**********************************************************
+v1.0 					- Initial release
+v1.1  					- .pkgmeta file added
+	 					- .toc file updated for future addon updates
+v1.1.1					- minor revisions to .toc, readme.md
+v1.2					- media files changes
+						- media references updated
+						- fonts added to package (future use)
+						- README update
+v1.2.1					- more media changes and reference updates
+v1.3					- break chains button added
+v2.0-alpha				- code reworked, theme set in place
+v2.1-alpha				- theme bug fix
+v2.2-alpha				- button updates
+						- README update
+						- ready button : added support for 'shift + click' to do a /dbm pull 10
+						- fixed a bug causing taunt whisper to not be sent out
+v2.2.1-alpha			- added dual functionality to stack and spread buttons
+v2.3-alpha				- some code refactoring
+v2.3.1-alpha			- minor edit
+v2.3.2-alpha			- whisper bug fix
