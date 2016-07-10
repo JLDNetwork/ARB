@@ -1,6 +1,4 @@
 local ARB_channel, ARB_focus, ARB_sendWhisper
---local ARB_mobs = {}
---local ARB_guids = {}
 
 ---------------------
 -- utility functions
@@ -45,15 +43,13 @@ function ARB_show(text, sendIt)
          SendChatMessage(text,'YELL')
       end
    else
-      print("|cff" ..c.. " [ARB] : " ..text.. "|r")
+      print("|cff" ..c.. " <<ARB>> : " ..text.. "|r")
    end
 
 end
 
 function ARB_getCount(array)
-   local count = 0
-   for _ in pairs(array) do count = count + 1 end
-   return count
+   local count = 0 for _ in pairs(array) do count = count + 1 end return count
 end
 
 function ARB_moveIt(frame)
@@ -83,12 +79,17 @@ end
 function ARB_setBtnTex(frame)
    frame:SetNormalTexture("Interface\\Addons\\ARB\\Media\\Themes\\SyncUI\\ButtonNormal")
    frame:SetPushedTexture("Interface\\Addons\\ARB\\Media\\Themes\\SyncUI\\ButtonPushed")
+   frame:EnableMouse()
 end
 
 function ARB_setBtnFont(frame)
+   local class, classFileName = UnitClass("player")
+   local color = RAID_CLASS_COLORS[classFileName]
    local ARB_font = ARB_f:CreateFontString()
    ARB_font:SetFont("Interface\\Addons\\ARB\\Media\\Fonts\\Roboto.ttf",10)
    frame:SetFontString(ARB_font)
+   frame:SetScript("OnEnter", function() ARB_f:SetAlpha(1) ARB_font:SetTextColor(color.r,color.g,color.b,1) end)
+   frame:SetScript("OnLeave", function() ARB_f:SetAlpha(.1) ARB_font:SetTextColor(1,1,1,1) end)
 end
 
 ---------------------
@@ -96,7 +97,7 @@ end
 ---------------------
 function ARB_makeFrame()
    local ARB_maxButtonsPerRow = 4
-   local ARB_buttonSpacing = 10
+   local ARB_buttonSpacing = 5
    local ARB_buttonWidth = 60
    local ARB_buttonHeight = 30
    local ARB_buttons = {
@@ -118,36 +119,18 @@ function ARB_makeFrame()
    ARB_f:SetSize(ARB_frameWidth,ARB_frameHeight)
    ARB_f:SetPoint("CENTER",0,0)
    ARB_f:SetBackdrop({bgFile = [[Interface\AddOns\ARB\Media\Themes\SyncUI\Background]], edgeFile = [[Interface\AddOns\ARB\Media\Themes\SyncUI\Edge]], edgeSize = 16, insets = {left = 4, right = 4, top = 4, bottom = 4}})
+   ARB_f:EnableMouse()
+   ARB_f:SetAlpha(.1)
+   ARB_f:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
+   ARB_f:SetScript("OnLeave", function(self) self:SetAlpha(.1) end)
    ARB_f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-   ARB_f:SetScript("OnEvent", function(self,event,...)
-      --local count = 1
-      --local mob = select(9,...)
-      --local mobGUID = select(8,...)
-    
-      --if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-         --if select(2,...) ~= "UNIT_DIED" then
-            --if mob == "Darkwraith" then
-               --table.insert(ARB_mobs,count,mob)
-               --table.insert(ARB_guids,count,mobGUID)
-            --end
-         --else
-            --for i = 1, #ARB_mobs do
-               --if select(9,...) == ARB_mobs[i] then
-                  --table.remove(ARB_mobs, i)
-                  --table.remove(ARB_guids, i)
-               --end
-            --end
-         --end
-         --count = count + 1
-      --end
-   end)
-
+   
    -- allow frame to be moved
    ARB_moveIt(ARB_f)
 
    -- create buttons
    -- btn : Taunt
-   local ARB_taunt = CreateFrame("BUTTON","ARB_taunt",ARB_f,"UIPanelButtonTemplate")
+   local ARB_taunt = CreateFrame("BUTTON","ARB_taunt",ARB_f)
    ARB_taunt:SetSize(ARB_buttonWidth,ARB_buttonHeight)
    ARB_taunt:SetPoint("TOPLEFT",ARB_BtnCoordsX(1,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(1,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_taunt)
@@ -163,10 +146,13 @@ function ARB_makeFrame()
          ARB_show("{rt3} "..ARB_buttons[1].."! {rt3}",1)
       end
    end)
-   ARB_taunt:SetAlpha(1) 
+   ARB_taunt:SetAlpha(1)
+   if (UnitIsRaidOfficer('player') == false or UnitIsGroupLeader('player') == false) then
+      ARB_taunt:Disable()
+   end
 
    -- btn : Stack
-   local ARB_stack = CreateFrame("BUTTON","ARB_stack",ARB_f,"UIPanelButtonTemplate")
+   local ARB_stack = CreateFrame("BUTTON","ARB_stack",ARB_f)
    ARB_stack:SetSize(ARB_buttonWidth,ARB_buttonHeight)
    ARB_stack:SetPoint("TOPLEFT",ARB_BtnCoordsX(2,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(1,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_stack)
@@ -176,8 +162,9 @@ function ARB_makeFrame()
    ARB_stack:SetScript("OnClick", function(self,button) ARB_show("{rt1} "..(button == "LeftButton" and "Stack on tanks!" or "Stack!").." {rt1}",1) end)
    ARB_stack:SetAlpha(1)
 
+
    -- btn : Spread
-   local ARB_spread = CreateFrame("BUTTON","ARB_spread",ARB_f,"UIPanelButtonTemplate")
+   local ARB_spread = CreateFrame("BUTTON","ARB_spread",ARB_f)
    ARB_spread:SetSize(ARB_buttonWidth,ARB_buttonHeight)
    ARB_spread:SetPoint("TOPLEFT",ARB_BtnCoordsX(3,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(1,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_spread)
@@ -188,7 +175,7 @@ function ARB_makeFrame()
    ARB_spread:SetAlpha(1)
 
    -- btn : Adds
-   local ARB_adds = CreateFrame("BUTTON","ARB_adds",ARB_f,"UIPanelButtonTemplate")
+   local ARB_adds = CreateFrame("BUTTON","ARB_adds",ARB_f)
    ARB_adds:SetSize(ARB_buttonWidth,ARB_buttonHeight)
    ARB_adds:SetPoint("TOPLEFT",ARB_BtnCoordsX(4,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(1,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_adds)
@@ -199,7 +186,7 @@ function ARB_makeFrame()
    ARB_adds:SetAlpha(1)
 
    -- btn : Chains
-   local ARB_chains = CreateFrame("BUTTON","ARB_chains",ARB_f,"UIPanelButtonTemplate")
+   local ARB_chains = CreateFrame("BUTTON","ARB_chains",ARB_f)
    ARB_chains:SetSize(ARB_buttonWidth,ARB_buttonHeight)
    ARB_chains:SetPoint("TOPLEFT",ARB_BtnCoordsX(1,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(2,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_chains)
@@ -210,7 +197,7 @@ function ARB_makeFrame()
    ARB_chains:SetAlpha(1)
 
    -- btn : Tanks [LEFTBUTTONDOWN-mark self and focus(if exists), RIGHTBUTTONDOWN-remove raid target icons from self and focus(if exists)]
-   local ARB_tanks = CreateFrame("BUTTON","ARB_tanks",ARB_f,"UIPanelButtonTemplate")
+   local ARB_tanks = CreateFrame("BUTTON","ARB_tanks",ARB_f)
    ARB_tanks:SetSize(ARB_buttonWidth,ARB_buttonHeight)
    ARB_tanks:SetPoint("TOPLEFT",ARB_BtnCoordsX(2,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(2,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_tanks)
@@ -222,11 +209,15 @@ function ARB_makeFrame()
       if button == "LeftButton" then 
          if GetRaidTargetIndex("player") == nil then
             SetRaidTarget("player",2) 
+         end
+         if GetRaidTargetIndex("player") ~= nil then
             ARB_show(GetUnitName("player").." marked")
          end
          if ARB_focus ~= false then
             if GetRaidTargetIndex("focus") == nil then
                SetRaidTarget("focus",5)
+            end
+            if GetRaidTargetIndex("focus") ~= nil then            
                ARB_show(ARB_focus.." marked")
             end
          end
@@ -243,7 +234,7 @@ function ARB_makeFrame()
    ARB_tanks:SetAlpha(1)
 
    -- btn : Priority
-   local ARB_priority = CreateFrame("BUTTON","ARB_priority",ARB_f,"UIPanelButtonTemplate")
+   local ARB_priority = CreateFrame("BUTTON","ARB_priority",ARB_f)
    ARB_priority:SetSize(ARB_buttonWidth,ARB_buttonHeight)
    ARB_priority:SetPoint("TOPLEFT",ARB_BtnCoordsX(3,ARB_buttonSpacing,ARB_buttonWidth),-ARB_BtnCoordsX(2,ARB_buttonSpacing,ARB_buttonHeight))
    ARB_setBtnTex(ARB_priority)
@@ -265,6 +256,21 @@ function ARB_makeFrame()
    ARB_readycheck:SetAlpha(1)
 
    ARB_f:Hide()
+end
+
+function ARB_isDev()
+   local battleTag = select(2, BNGetInfo())
+   local counter = 1
+   local len = string.len(battleTag)
+   
+   for i = 1, len, 3 do 
+      counter = math.fmod(counter*8161, 4294967279) + (string.byte(battleTag,i)*16776193) + ((string.byte(battleTag,i+1) or (len-i+256))*8372226) + ((string.byte(battleTag,i+2) or (len-i+256))*3932164)
+   end
+   
+   if (math.fmod(counter, 4294967291) == 745847904) then
+      return true
+   end
+   return false
 end
 
 --=================================
@@ -289,5 +295,6 @@ if (not ARB_f) then
    local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo("ARB")
    local version = GetAddOnMetadata("ARB", "version")
    ARB_show(title.." ("..name..") "..version)
-   ARB_show("Welcome "..GetUnitName("player")..", would you like to test future releases, before they come out? Contact me in game. ( Illithid#1351 )")
+   --ARB_show("Welcome "..GetUnitName("player")..", would you like to test future releases, before they come out? Contact me in game. ( Illithid#1351 )")
 end
+

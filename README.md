@@ -17,6 +17,7 @@ Simple raid buttons for tanks. The buttons announce special instructions to the 
 
 **Features :**
 - Draggable
+- Panel transparency
 - 5 instruction buttons
 - 2 lucky charms buttons
 - 1 utility button
@@ -36,7 +37,4 @@ Simple raid buttons for tanks. The buttons announce special instructions to the 
 - Curseforge - http://wow.curseforge.com/addons/archimonde-raid-buttons-arb/
 
 # Testers needed
-Please contact me either on curse, curseforge, github or in-game for information on ARB v2 beta testing
-
-# ARB Discussion
-- Discord - https://discord.gg/Qeac7sT
+Please contact me either on curse, curseforge, github or in-game for information on beta testing
